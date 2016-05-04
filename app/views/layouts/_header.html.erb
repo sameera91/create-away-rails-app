@@ -1,0 +1,16 @@
+<h2>Create Away</h2>
+
+<nav class="">
+    <ul>
+          <% if current_user %>
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+          <%else%>
+            <%= link_to "Sign In", user_session_path %>
+            <%= link_to "Sign up", new_user_registration_path %>
+          <% end %>
+
+          <%if current_user%>
+            <%= link_to "New project", new_user_project_path(current_user.id) %>
+          <%end%>
+    </ul>
+</nav>

@@ -1,9 +1,18 @@
 Rails.application.routes.draw do
   devise_for :users
+  root 'projects#index', as: 'projects'
   resources :likes
   resources :comments
   resources :categories
   resources :projects
+
+  resources :users, only: [:show, :index] do
+    resources :projects, only: [:show, :index, :new]
+  end
+
+  resources :projects, only: [:show, :index] do
+    resources :comments, only: [:show, :index, :new]
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
