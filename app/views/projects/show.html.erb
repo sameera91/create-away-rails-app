@@ -2,7 +2,14 @@
 
 <p>Name: <%= @project.title %></p>
 <p>Description: <%= @project.long_description %></p>
-<p>Category: <%= @project.category.name %></p>
+
+<p>Categories:</p>
+<% @project.categories.each do |category| %>
+  <p><%= category.name %></p>
+<%end%>
+
+<p>Number of likes:</p>
+<%= @project.likes.count %>
 
 <p>Comments:</p>
 
@@ -13,6 +20,7 @@
 
 <% if current_user %>
   <%= link_to "Post a comment", new_project_comment_path(@project) %>
+  <%= link_to "Like", project_likes_path(@project), { :method => "post"} %>
 <% else %>
   <%= link_to "Sign in", user_session_path %> to post a comment!
 <%end%>

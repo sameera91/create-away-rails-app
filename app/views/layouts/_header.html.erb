@@ -11,6 +11,7 @@
 
           <%if current_user%>
             <%= link_to "New project", new_user_project_path(current_user.id) %>
+            <%= link_to "All projects", projects_path %>
           <%end%>
     </ul>
 </nav>
