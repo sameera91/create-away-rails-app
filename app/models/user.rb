@@ -8,31 +8,14 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :projects, through: :comments
 
-=begin
-
-  validates :username,
-  :presence => true,
-  :uniqueness => {
-    :case_sensitive => false
-  } #
-
-  validate :validate_username
-=end
-
-def validate_username
-  if User.where(email: username).exists?
-    errors.add(:username, :invalid)
-  end
-end
-
-
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.provider = auth.provider
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
-      user.first_name = auth.info.first_name
-      user.last_name = auth.info.last_name
-    end      
+      user.name = auth.info.name
+      user.save!
+    end 
   end
 
   def self.find_for_database_authentication(warden_conditions)

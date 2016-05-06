@@ -6,6 +6,7 @@ class ProjectsController < ApplicationController
       @projects = Project.all
     end
     @top_projects = Project.top_projects
+    #render :text => request.env["omniauth.auth"].to_yaml
   end
   
   def new

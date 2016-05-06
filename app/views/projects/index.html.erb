@@ -1,9 +1,7 @@
-
-<% if current_user %>
-   <%= current_user.email %>
-<% end %>
-
-<h1>All projects</h1>
+<center>
+<h3>Check out the latest projects!</h3>
+<br><br>
+<h2>All projects</h2>
 
 <% @projects.each do |project| %>
   <% if params[:user_id] %>
@@ -14,7 +12,10 @@
   <%= project.short_description %><br>
 <%end%>
 
+<br><br><br>
+
 <h2>Top projects</h2>
 <% @top_projects.each do |project| %>
   <%= project.title %>
 <%end%>
+</center>

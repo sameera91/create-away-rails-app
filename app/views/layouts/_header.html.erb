@@ -1,4 +1,9 @@
-<center><%= image_tag("Drawing.png") %></center>
+<div id="title">
+<%= image_tag("Drawing.png") %>
+<% if current_user %>
+   Signed in as <%= current_user.name %><br>
+<% end %>
+</div>
 <br><br><br>
 <nav class="nav">
     <ul>
