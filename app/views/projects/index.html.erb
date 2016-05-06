@@ -1,10 +1,20 @@
+
+<% if current_user %>
+   <%= current_user.email %>
+<% end %>
+
 <h1>All projects</h1>
 
 <% @projects.each do |project| %>
-  <% if current_user %>
-    <%= link_to project.title, user_project_path(current_user.id, project.id) %><br>
+  <% if params[:user_id] %>
+    <%= link_to project.title, user_project_path(params[:user_id], project.id) %><br>
   <% else %>
     <%= link_to project.title, project_path(project) %><br>
   <% end %>
   <%= project.short_description %><br>
+<%end%>
+
+<h2>Top projects</h2>
+<% @top_projects.each do |project| %>
+  <%= project.title %>
 <%end%>

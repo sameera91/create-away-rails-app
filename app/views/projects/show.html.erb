@@ -9,7 +9,7 @@
 <%end%>
 
 <p>Number of likes:</p>
-<%= @project.likes.count %>
+<%= @project.likes %>
 
 <p>Comments:</p>
 
@@ -18,9 +18,12 @@
 <%end%>
 <br>
 
+<% if !current_user.projects.include?(@project) %>
+  <%= link_to "Like", edit_project_path(@project) %><br>
+<%end%>
+
 <% if current_user %>
   <%= link_to "Post a comment", new_project_comment_path(@project) %>
-  <%= link_to "Like", project_likes_path(@project), { :method => "post"} %>
 <% else %>
-  <%= link_to "Sign in", user_session_path %> to post a comment!
+  <%= link_to "Sign in", user_session_path %> to like or post a comment!
 <%end%>

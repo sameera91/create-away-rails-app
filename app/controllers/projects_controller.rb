@@ -1,6 +1,11 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = Project.all
+    if params[:user_id]
+      @projects = User.find(params[:user_id]).projects
+    else
+      @projects = Project.all
+    end
+    @top_projects = Project.top_projects
   end
   
   def new
@@ -9,11 +14,22 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.create(project_params)
+    current_user.projects << @project
     redirect_to project_path(@project)
   end
 
   def show
+    if params[:user_id]
+      @project = User.find(params[:user_id]).projects.find(params[:id])
+    else
+      @project = Project.find(params[:id])
+    end
+  end
+
+  def edit
     @project = Project.find(params[:id])
+    @project.update_likes(params[:id])
+    redirect_to project_path(@project)
   end
 
   private

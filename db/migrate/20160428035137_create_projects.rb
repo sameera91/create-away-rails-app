@@ -6,6 +6,7 @@ class CreateProjects < ActiveRecord::Migration
       t.string :image_filename
       t.string :short_description
       t.string :long_description
+      t.integer :likes, :default => 0
 
       t.timestamps null: false
     end

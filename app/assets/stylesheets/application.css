@@ -1,3 +1,39 @@
+.form_button{
+  background-color: #944dff;
+  border: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 40px;
+  padding-right: 40px;
+  color: white;
+  border-radius: 3px;
+}
+
+.form{
+  text-align: center;
+}
+
+h2{
+  text-align: center;
+}
+
+.nav_button{
+  background-color: #4d4dff;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: white;
+  border-radius: 3px;
+}
+
+.nav{
+  text-align: center;
+}
+
+
+
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
