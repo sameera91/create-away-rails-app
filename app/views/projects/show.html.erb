@@ -1,3 +1,5 @@
+<%= flash[:success] if flash[:success] %><br>
+
 <h1><%= @project.title %></h1>
 
 <p>Name: <%= @project.title %></p>
@@ -10,15 +12,18 @@
 
 <p>Number of likes:</p>
 <%= @project.likes %>
-
-<p>Comments:</p>
+<br><br><br>
+<p id="comments">Comments:</p>
 
 <% @project.comments.each do |comment| %>
   <%= comment.content %><br>
 <%end%>
 <br>
 
-<% if !current_user.projects.include?(@project) %>
+<%= link_to "Edit post", edit_project_path(@project) %><br>
+<%= link_to 'Delete post',  user_project_path(current_user, @project),
+    data: { confirm: 'Are you sure?' }, method: :delete %><br>
+<% if current_user && !current_user.projects.include?(@project) %>
   <%= link_to "Like", edit_project_path(@project) %><br>
 <%end%>
 

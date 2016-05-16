@@ -4,11 +4,11 @@ Rails.application.routes.draw do
   resources :comments
 
   resources :users, only: [:show, :index] do
-    resources :projects, only: [:show, :index, :new, :create, :edit]
+    resources :projects, only: [:show, :index, :new, :create, :edit, :update, :destroy]
   end
 
-  resources :projects, only: [:show, :index, :create, :edit] do
-    resources :comments, only: [:show, :index, :new]
+  resources :projects, only: [:show, :index, :create, :edit, :update, :destroy] do
+    resources :comments, only: [:show, :index, :new, :edit, :update, :destroy]
   end
 
 

@@ -5,6 +5,7 @@ class Project < ActiveRecord::Base
   has_many :comments
   belongs_to :user
   has_many :users, through: :comments
+  validates :title, presence: true
 
   def categories_attributes=(category_attributes)
     category_attributes.values.each do |category_attribute|

@@ -9,13 +9,10 @@
   border-radius: 3px;
 }
 
-.form{
+body{
   text-align: center;
 }
 
-h2{
-  text-align: center;
-}
 
 .nav_button{
   background-color: #4d4dff;
@@ -27,12 +24,16 @@ h2{
   border-radius: 3px;
 }
 
-.nav{
-  text-align: center;
+.welcome{
+  font-size: 20px;
 }
 
-#title{
-  text-align: center;
+.project_title{
+  font-size: 18px;
+}
+
+#comments{
+  font-size: 20px;
 }
 
 

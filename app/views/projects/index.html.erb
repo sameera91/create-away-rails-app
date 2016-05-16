@@ -1,13 +1,12 @@
-<center>
 <h3>Check out the latest projects!</h3>
 <br><br>
 <h2>All projects</h2>
 
 <% @projects.each do |project| %>
   <% if params[:user_id] %>
-    <%= link_to project.title, user_project_path(params[:user_id], project.id) %><br>
+    <%= link_to project.title, user_project_path(params[:user_id], project.id), :class => "project_title" %><br>
   <% else %>
-    <%= link_to project.title, project_path(project) %><br>
+    <%= link_to project.title, project_path(project), :class => "project_title" %><br>
   <% end %>
   <%= project.short_description %><br>
 <%end%>
@@ -18,4 +17,3 @@
 <% @top_projects.each do |project| %>
   <%= project.title %>
 <%end%>
-</center>

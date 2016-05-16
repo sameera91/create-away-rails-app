@@ -6,7 +6,6 @@ class ProjectsController < ApplicationController
       @projects = Project.all
     end
     @top_projects = Project.top_projects
-    #render :text => request.env["omniauth.auth"].to_yaml
   end
   
   def new
@@ -15,8 +14,12 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.create(project_params)
-    current_user.projects << @project
-    redirect_to project_path(@project)
+    if @project.save
+      current_user.projects << @project
+      redirect_to project_path(@project)
+    else
+      render "projects/new"
+    end
   end
 
   def show
@@ -30,8 +33,23 @@ class ProjectsController < ApplicationController
   def edit
     @project = Project.find(params[:id])
     @project.update_likes(params[:id])
-    redirect_to project_path(@project)
   end
+
+  def update
+    @project = Project.find(params[:id])
+    @project.update(project_params)
+    if @project.save
+      flash[:success] = "Project updated."
+      redirect_to @project
+    end
+  end
+
+  def destroy
+    Project.find(params[:id]).destroy
+    flash[:success] = "User deleted"
+    redirect_to projects_path
+  end
+
 
   private
 
