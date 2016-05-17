@@ -31,8 +31,13 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = Project.find(params[:id])
-    @project.update_likes(params[:id])
+    @project = current_user.projects.find(params[:id])
+  end
+
+  def like
+    @project = Project.find(params[:project_id])
+    @project.update_likes(params[:project_id])
+    redirect_to @project
   end
 
   def update

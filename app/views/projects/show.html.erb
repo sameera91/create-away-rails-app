@@ -20,11 +20,13 @@
 <%end%>
 <br>
 
+<% if current_user && current_user.projects.include?(@project) %>
 <%= link_to "Edit post", edit_project_path(@project) %><br>
-<%= link_to 'Delete post',  user_project_path(current_user, @project),
-    data: { confirm: 'Are you sure?' }, method: :delete %><br>
+  <%= link_to 'Delete post',  user_project_path(current_user, @project),
+      data: { confirm: 'Are you sure?' }, method: :delete %><br>
+<%end%>
 <% if current_user && !current_user.projects.include?(@project) %>
-  <%= link_to "Like", edit_project_path(@project) %><br>
+  <%= link_to "Like", project_like_path(@project) %><br>
 <%end%>
 
 <% if current_user %>
@@ -32,3 +34,4 @@
 <% else %>
   <%= link_to "Sign in", user_session_path %> to like or post a comment!
 <%end%>
+
