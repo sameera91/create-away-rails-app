@@ -16,7 +16,7 @@
 <p id="comments">Comments:</p>
 
 <% @project.comments.each do |comment| %>
-  <%= comment.content %><br>
+  <%= link_to comment.content, project_comment_path(@project, comment) %><br>
 <%end%>
 <br>
 
@@ -34,4 +34,5 @@
 <% else %>
   <%= link_to "Sign in", user_session_path %> to like or post a comment!
 <%end%>
+
 

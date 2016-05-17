@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     Project.find(params[:id]).destroy
-    flash[:success] = "User deleted"
+    flash[:success] = "Project deleted"
     redirect_to projects_path
   end
 

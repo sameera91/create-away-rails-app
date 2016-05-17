@@ -8,13 +8,26 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.create(comment_params)
-    redirect_to comment_path(@comment)
+    if @comment.save
+      current_user.comments << @comment
+    end
+    @project = Project.find(@comment.project_id)
+    redirect_to project_path(@project)
   end
 
   def show
     @comment = Comment.find(params[:id])
     @project = Project.find(@comment.project_id)
-    redirect_to project_path(@project)
+  end
+
+  def edit
+    @comment = current_user.comments.find(params[:id])
+  end
+
+  def destroy
+    Comment.find(params[:id]).destroy
+    flash[:success] = "Comment deleted"
+    redirect_to comments_path
   end
 
   private

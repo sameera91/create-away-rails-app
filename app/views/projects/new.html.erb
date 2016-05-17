@@ -8,15 +8,18 @@
 
 <%= form_for @project do |f| %>
   <%= f.label "Title" %><br>
-  <%= f.text_field :title %><br>
+  <%= f.text_field :title %><br><br>
   <%= f.label "Short Description" %><br>
-  <%= f.text_area :short_description %><br>
+  <%= f.text_area :short_description %><br><br>
   <%= f.label "Long Description" %><br>
-  <%= f.text_area :long_description %><br>
+  <%= f.text_area :long_description %><br><br>
 
   <p>Choose a category:</p>
-  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %><br>
-
+  <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+  <%= b.check_box %>
+  <%= b.label %><br>
+  <%end%>
+  <br>
   <p>Or create a new category:</p>
   <%= f.fields_for :categories, @project.categories.build do |categories_fields| %>
     <%= categories_fields.text_field :name %>
@@ -25,3 +28,4 @@
   <%= f.submit %>
 
 <%end%>
+
