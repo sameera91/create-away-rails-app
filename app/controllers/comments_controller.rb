@@ -8,11 +8,15 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.create(comment_params)
+    @comment.user_id = current_user.id
     if @comment.save
+      @project = Project.find(@comment.project_id)
       current_user.comments << @comment
+      @project.comments.build(comment_params)
+      redirect_to project_path(@project)
+    else
+      render "comments/new"
     end
-    @project = Project.find(@comment.project_id)
-    redirect_to project_path(@project)
   end
 
   def show
@@ -22,6 +26,15 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = current_user.comments.find(params[:id])
+  end
+
+  def update
+    @comment = Comment.find(params[:id])
+    @comment.update(comment_params)
+    if @comment.save
+      flash[:success] = "Comment updated."
+      redirect_to @comment
+    end
   end
 
   def destroy

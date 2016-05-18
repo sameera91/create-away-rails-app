@@ -4,8 +4,8 @@ class CreateProjects < ActiveRecord::Migration
       t.string :title
       t.string :user_id
       t.string :image_filename
-      t.string :short_description
-      t.string :long_description
+      t.string :short_blurb
+      t.string :location
       t.integer :likes, :default => 0
 
       t.timestamps null: false

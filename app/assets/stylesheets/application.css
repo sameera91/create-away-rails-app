@@ -11,16 +11,21 @@
 
 body{
   text-align: center;
+  background-image: url("asanoha.png");
 }
 
 
 .nav_button{
-  background-color: #4d4dff;
+  color: #0086b3;
+  text-transform: uppercase;
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 15px;
   padding-right: 15px;
-  color: white;
+  font-family: "Arial";
+  font-size: 15px;
+  border: solid 0.2px;
+  background-color: white;
   border-radius: 3px;
 }
 
@@ -36,8 +41,72 @@ body{
   font-size: 20px;
 }
 
+.media-object{
+  text-align: center;
+  height: 150px;
+  width: 200px;
 
+}
 
+.title, .title:hover {
+  text-transform: uppercase;
+  font-size: 40px;
+  color: #ff66cc;
+  font-family: "Arial";
+  text-decoration: none;
+}
+
+#title{
+  height: 5%;
+}
+
+.create_new{
+  text-transform: uppercase;
+  color: #4B0082;
+  font-family: 'Times New Roman';
+  font-size: 25px;
+}
+
+.project_title_1{
+  font-size: 25px;
+}
+
+.project{
+  border: solid 0.3px;
+  width: 30%;
+  border-radius: 7px;
+  text-align: center;
+  background-color: #ecd9c6;
+}
+
+.form-control{
+  width: 20%;
+}
+
+.text-area{
+  height: 100px;
+  width: 200px;
+}
+
+hr { 
+  height:1px; 
+  border:none; 
+  color:rgb(60,90,180); 
+  background-color: gray; 
+}
+
+.created{
+  font-style: italic;
+}
+
+.creator{
+  font-weight: bold;
+}
+
+.likes{
+  font-weight: bold;
+  color: #0059b3;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.

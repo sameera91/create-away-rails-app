@@ -1,9 +1,15 @@
+<%= flash[:error] if flash[:error] %><br>
+
+<% if current_user.comments.include?(@comment) %>
+  <%= link_to "Edit comment", edit_comment_path(@comment), class: 'form_button' %>
+  <%= link_to 'Delete comment',  user_project_path(current_user, Project.find(@comment.project_id)),
+      data: { confirm: 'Are you sure you want to delete this comment?' }, method: :delete, class: 'form_button' %>
+<%end%>
+
 <h1><%= Project.find(@comment.project_id).title %></h1>
 <br>
 <%= @comment.content %><br><br>
+<p>By:</p>
+<p><%= User.find(@comment.user_id).name %></p>
 
-<% if current_user.comments.include?(@comment) %>
-  <%= link_to "Edit comment", edit_comment_path(@comment) %><br>
-  <%= link_to 'Delete comment',  user_project_path(current_user, Project.find(@comment.project_id)),
-      data: { confirm: 'Are you sure?' }, method: :delete %>
-<%end%>
+<%= link_to "Back to project", project_path(Project.find(@comment.project_id)) %>
