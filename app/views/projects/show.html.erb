@@ -1,36 +1,51 @@
-<%= flash[:success] if flash[:success] %><br>
+<%= flash[:success] if flash[:success] %>
+<br><br>
 
-<h1><%= @project.title %></h1>
-
-<p>Name: <%= @project.title %></p>
-<p>Description: <%= @project.long_description %></p>
-
-<p>Categories:</p>
-<% @project.categories.each do |category| %>
-  <p><%= category.name %></p>
+<% if current_user && current_user.created_projects.include?(@project) %>
+  <%= link_to "Edit project", edit_project_path(@project), class: 'form_button' %>
+    <%= link_to 'Delete project',  user_project_path(current_user, @project),
+        data: { confirm: 'Are you sure you want to delete this project?' }, method: :delete, class: 'form_button' %><br>
 <%end%>
 
-<p>Number of likes:</p>
-<%= @project.likes %>
-<br><br><br>
+<br><br>
+
+<center><div class="project">
+
+  <h1 class="project_title_1"><%= @project.title %></h1>
+  <br>
+  <p class="creator">Created by: <%= @user_name %></p>
+
+  <% if !@project.image_file_name.nil? %>
+    <center><%= link_to image_tag(@project.image.url, class: 'media-object'), @project.image.url, target: '_blank' %></center>
+  <%end%>
+  <br>
+  <p class="created"><%= @project.short_blurb %></p>
+
+
+  <div class="likes"><%= pluralize(@project.likes, 'like') %></div>
+
+  <br><br><br>
+  <% @project.categories.each do |category| %>
+    <p><%= category.name %></p>
+  <%end%>
+
+</div></center>
+<br>
+
 <p id="comments">Comments:</p>
 
 <% @project.comments.each do |comment| %>
-  <%= comment.content %><br>
+  <%= link_to comment.content, project_comment_path(@project, comment) if !comment.content.nil? %>
+  <div class="created">By: <%= User.find(comment.user_id).name%></div><br>
 <%end%>
 <br>
 
-<% if current_user && current_user.projects.include?(@project) %>
-<%= link_to "Edit post", edit_project_path(@project) %><br>
-  <%= link_to 'Delete post',  user_project_path(current_user, @project),
-      data: { confirm: 'Are you sure?' }, method: :delete %><br>
-<%end%>
-<% if current_user && !current_user.projects.include?(@project) %>
-  <%= link_to "Like", project_like_path(@project) %><br>
+<% if current_user && !current_user.created_projects.include?(@project) %>
+  <%= link_to "Like", project_like_path(@project), class: 'btn btn-default glyphicon glyphicon-thumbs-up' %><br><br>
 <%end%>
 
 <% if current_user %>
-  <%= link_to "Post a comment", new_project_comment_path(@project) %>
+  <%= link_to "Post a comment", new_project_comment_path(@project), class: 'btn btn-primary' %><br>
 <% else %>
   <%= link_to "Sign in", user_session_path %> to like or post a comment!
 <%end%>

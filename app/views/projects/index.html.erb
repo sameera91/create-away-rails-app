@@ -1,5 +1,15 @@
-<h3>Check out the latest projects!</h3>
+<%= flash[:success] if flash[:success] %>
+<br>
+<h3>Check out the latest projects. Start your own today!</h3>
 <br><br>
+
+<h2>Trending projects</h2>
+<% @trending_projects.each do |project| %>
+  <%= project.title %>
+<%end%>
+
+<br><br><br>
+
 <h2>All projects</h2>
 
 <% @projects.each do |project| %>
@@ -8,12 +18,5 @@
   <% else %>
     <%= link_to project.title, project_path(project), :class => "project_title" %><br>
   <% end %>
-  <%= project.short_description %><br>
-<%end%>
-
-<br><br><br>
-
-<h2>Top projects</h2>
-<% @top_projects.each do |project| %>
-  <%= project.title %>
+  <p class="created">Created by: <%= User.find(project.user_id).name %></p>
 <%end%>

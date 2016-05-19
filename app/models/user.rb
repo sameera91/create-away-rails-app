@@ -3,13 +3,15 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   attr_accessor :login
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :omniauthable, :omniauth_providers => [:facebook]
+         :recoverable, :rememberable, :validatable, :trackable, :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :comments
-  has_many :projects, through: :comments
 
-  validates :name, presence: true
-  validates :name, uniqueness: true
+  has_many :created_projects, :foreign_key => "creator_id", :class_name => "Project"
+  has_many :commented_projects, through: :comments, :class_name => "Project"
+  
+  validates_presence_of :name 
+  validates_uniqueness_of :name 
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

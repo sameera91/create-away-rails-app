@@ -3,9 +3,15 @@ class Project < ActiveRecord::Base
   has_many :project_categories
   has_many :categories, through: :project_categories
   has_many :comments
-  belongs_to :user
-  has_many :users, through: :comments
+
+  belongs_to :creator, :class_name => "User"
+
+  has_many :commenters, through: :comments, :class_name => "User"
+
   validates :title, presence: true
+  has_attached_file :image
+  validates_attachment :image,
+                     content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
 
   def categories_attributes=(category_attributes)
     category_attributes.values.each do |category_attribute|
@@ -21,7 +27,7 @@ class Project < ActiveRecord::Base
     @project
   end
 
-  def self.top_projects
+  def self.trending_projects
     where("likes > 10")
   end
 
