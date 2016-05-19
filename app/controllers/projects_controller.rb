@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
     else
       @projects = Project.all
     end
-    @top_projects = Project.top_projects
+    @trending_projects = Project.trending_projects
   end
   
   def new
@@ -29,6 +29,7 @@ class ProjectsController < ApplicationController
     else
       @project = Project.find(params[:id])
     end
+    @user_name = User.find(@project.user_id).name
   end
 
   def edit
@@ -45,14 +46,14 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     @project.update(project_params)
     if @project.save
-      flash[:success] = "Project updated."
+      flash[:success] = "Project successfully updated."
       redirect_to @project
     end
   end
 
   def destroy
     Project.find(params[:id]).destroy
-    flash[:success] = "Project deleted"
+    flash[:success] = "Project successfully deleted."
     redirect_to projects_path
   end
 

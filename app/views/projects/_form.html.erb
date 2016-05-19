@@ -1,13 +1,13 @@
 <%= form_for @project do |f| %>
   <%= f.label "Title" %><br>
-  <%= f.text_field :title %><br><br>
+  <%= f.text_field :title, class: 'text-field' %><br><br>
   <%= f.label "Image" %>
   <center><%= f.file_field :image, class: 'form-control'%></center><br>
 
   <%= f.label "Short Blurb" %><br>
   <%= f.text_area :short_blurb, class: 'text-area' %><br><br>
   <%= f.label "Location" %><br>
-  <%= f.text_field :location %><br><br>
+  <%= f.text_field :location, class: 'text-field' %><br><br>
   <p>Choose a category:</p>
   <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
   <%= b.check_box %>
@@ -16,7 +16,7 @@
   <br>
   <p>Or create a new category:</p>
   <%= f.fields_for :categories, @project.categories.build do |categories_fields| %>
-    <%= categories_fields.text_field :name %>
+    <%= categories_fields.text_field :name, class: 'text-field' %>
   <% end %><br><br>
 
   <%= f.submit class: 'btn btn-primary' %>

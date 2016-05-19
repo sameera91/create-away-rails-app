@@ -22,6 +22,7 @@ class CommentsController < ApplicationController
   def show
     @comment = Comment.find(params[:id])
     @project = Project.find(@comment.project_id)
+    @user_name = User.find(@comment.user_id).name
   end
 
   def edit
@@ -33,14 +34,16 @@ class CommentsController < ApplicationController
     @comment.update(comment_params)
     if @comment.save
       flash[:success] = "Comment updated."
-      redirect_to @comment
     end
+    redirect_to @comment
   end
 
   def destroy
-    Comment.find(params[:id]).destroy
-    flash[:success] = "Comment deleted"
-    redirect_to comments_path
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+    @project = Project.find(@comment.project_id)
+    flash[:success] = "Comment deleted."
+    redirect_to project_path(@project)
   end
 
   private

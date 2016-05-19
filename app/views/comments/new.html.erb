@@ -1,12 +1,11 @@
+<h1><%= Project.find(@comment.project_id).title %></h1>
 <br>
+
 <% if @comment.errors.any? %>
     <% @comment.errors.full_messages.each do |msg| %>
       <p><%= msg %>.</p>
     <% end %>
 <% end %>
-
-
-<h1><%= Project.find(@comment.project_id).title %></h1>
 
 <%= render "form" %>
 

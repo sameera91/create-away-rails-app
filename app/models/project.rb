@@ -27,7 +27,7 @@ class Project < ActiveRecord::Base
     @project
   end
 
-  def self.top_projects
+  def self.trending_projects
     where("likes > 10")
   end
 
