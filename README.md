@@ -1,6 +1,6 @@
 ## General Information
 
-This is a Rails application that allows users to sign up and keep track of creative projects. Users can also view and comment on the creative projects of other users.
+My Creative Projects is a Rails application that allows users to sign up and keep track of creative projects. Users can also view and comment on the projects of other users.
 
 ## Getting Started 
 
