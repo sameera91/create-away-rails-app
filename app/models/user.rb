@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
     end 
   end
 
+  #changing the behavior of the login action so overwrite the find_for_database_authentication method. 
+  #allows you to redefine authentication
   def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup
       if login = conditions.delete(:login)

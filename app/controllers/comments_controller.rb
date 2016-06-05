@@ -7,8 +7,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.create(comment_params)
-    @comment.user_id = current_user.id
+    @comment = current_user.comments.build(comment_params)
     if @comment.save
       @project = Project.find(@comment.project_id)
       current_user.comments << @comment

@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", registrations: 'registrations' }
   root 'projects#index'
+  
   resources :comments
 
+  resources :categories, only: [:index, :show]
+
   resources :users, only: [:show, :index] do
-    resources :projects
+    resources :projects, except: [:new]
   end
 
   resources :projects do

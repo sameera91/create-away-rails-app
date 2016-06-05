@@ -9,16 +9,15 @@ class ProjectsController < ApplicationController
   end
   
   def new
-    @project = Project.new(user_id: params[:user_id])
+    @project = current_user.created_projects.build() 
     @all_categories = Category.all.reject {|category| category.name.empty?}
   end
 
   def create
-    @project = Project.create(project_params)
+    @project = current_user.created_projects.build(project_params) 
     @all_categories = Category.all.reject {|category| category.name.empty?}
     @project.user_id = current_user.id
     if @project.save
-      current_user.created_projects << @project
       redirect_to project_path(@project)
     else
       render "projects/new"
