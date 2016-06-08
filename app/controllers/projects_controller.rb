@@ -31,6 +31,11 @@ class ProjectsController < ApplicationController
       @project = Project.find(params[:id])
     end
     @user_name = User.find(@project.user_id).name
+
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @project}
+    end
   end
 
   def edit
