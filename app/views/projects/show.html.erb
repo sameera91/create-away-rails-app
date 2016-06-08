@@ -45,9 +45,51 @@
 <%end%>
 
 <% if current_user %>
-  <%= link_to "Post a comment", new_project_comment_path(@project), class: 'btn btn-primary' %><br>
+  <button class="post_comment btn btn-primary">Post a comment</button>
 <% else %>
   <%= link_to "Sign in", user_session_path %> to like or post a comment!
 <%end%>
 
 
+<a href="#" class="next-project" data-id="<%=@project.id%>">Next</a>
+
+<div id="form"> 
+
+<% @project.comments.each do |comment| %>
+  <%# comment = Comment.new %>
+  <%#= render "comments/form", :comment => comment %>
+<%end%>
+
+  <%= form_for ([@project, Comment.new(project_id: @project.id)]) do |f| %>
+    <%= f.hidden_field :project_id %>
+    <%= f.label "Comment" %><br>
+    <%= f.text_area :content, class: 'text-area' %><br><br>
+    <%= f.submit class: 'btn btn-primary' %>
+  <%end%>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  /*$(".next-project").on("click", function(event) {
+
+
+    var projectUrl = event["target"]["href"]
+
+    var projectId = parseInt(projectUrl.slice(0,-1).slice(-1))+1;
+    console.log(projectId);
+
+    $.get("/projects/" + projectId + ".json", function(data){
+      $("body").html(data);
+    });
+
+  });*/
+
+  $("#form").hide();
+
+  $(".post_comment").click(function(event){
+    $("#form").toggle();
+  });
+});
+
+
+</script>
