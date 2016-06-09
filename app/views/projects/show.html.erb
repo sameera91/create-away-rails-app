@@ -32,41 +32,29 @@
 </div></center>
 <br>
 
-<p id="comments">Comments:</p>
-
-<% @project.comments.each do |comment| %>
-  <%= link_to comment.content, project_comment_path(@project, comment) if !comment.content.nil? %>
-  <div class="created">By: <%= User.find(comment.user_id).name%></div><br>
-<%end%>
-<br>
-
 <% if current_user && !current_user.created_projects.include?(@project) %>
   <%= link_to "Like", project_like_path(@project), class: 'btn btn-default glyphicon glyphicon-thumbs-up' %><br><br>
 <%end%>
 
-<% if current_user %>
-  <button class="post_comment btn btn-primary">Post a comment</button>
-<% else %>
+<% if !current_user %>
   <%= link_to "Sign in", user_session_path %> to like or post a comment!
 <%end%>
 
-
-<a href="#" class="next-project" data-id="<%=@project.id%>">Next</a>
-
 <div id="form"> 
-
-<% @project.comments.each do |comment| %>
-  <%# comment = Comment.new %>
-  <%#= render "comments/form", :comment => comment %>
-<%end%>
-
   <%= form_for ([@project, Comment.new(project_id: @project.id)]) do |f| %>
     <%= f.hidden_field :project_id %>
     <%= f.label "Comment" %><br>
     <%= f.text_area :content, class: 'text-area' %><br><br>
-    <%= f.submit class: 'btn btn-primary' %>
+    <%= f.submit %>
   <%end%>
 </div>
+
+<div id="new_comment">
+
+<a href="" class="comments">Load Comments:</a><br><br>
+
+</div>
+
 
 <script type="text/javascript" charset="utf-8">
 $(function () {
@@ -84,10 +72,30 @@ $(function () {
 
   });*/
 
-  $("#form").hide();
+  //$(".new_comment").html("");
+
+  $(".comments").click(function(event){
+
+    event.preventDefault();
+
+    var projectUrl = event["target"]["href"];
+
+    $.get(projectUrl + ".json", function(data) {
+
+
+      data["comments"].forEach(function(object){
+        if($("#new_comment").val().indexOf(object.content) === -1){
+          $("#new_comment").append('</br>' + object.content + '</br>');
+
+        }
+      });
+
+    });
+
+  });
 
   $(".post_comment").click(function(event){
-    $("#form").toggle();
+    $("#form").show();
   });
 });
 
