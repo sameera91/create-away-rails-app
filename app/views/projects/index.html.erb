@@ -19,17 +19,24 @@
 
     <div class=projectShortBlurb-<%= project.id %>></div>
     <div class=projectLikes-<%=project.id%>></div>
+    <%= link_to "View Project", project_path(project), :class => "more btn btn-primary" %><br>
   <% else %>
     <%= link_to project.title, project_path(project), :class => "project_title" %><br>
     <p class="created">Created by: <%= User.find(project.user_id).name %></p>
     <div class=projectShortBlurb-<%=project.id%>></div>
     <div class=projectLikes-<%=project.id%>></div>
+    <%= link_to "View Project", project_path(project), :class => "more-#{project.id} view" %><br><br>
+
   <% end %>
 <%end%>
 
 
 <script type="text/javascript" charset="utf-8">
+
   $(function () {
+
+  $(".view").hide();
+  
   $(".project_title").on("click", function(event) {
     event.preventDefault();
 
@@ -38,15 +45,16 @@
     var projectId = projectUrl.slice(-1);
     
     $.get(projectUrl + ".json", function(data) {
-
       
       if($(".projectShortBlurb-" + projectId).text() == ""){
         $(".projectShortBlurb-" + projectId).text(data.short_blurb);
         $(".projectLikes-" + projectId).text("Likes: " + data.likes);
+        $(".more-"+projectId).show();
       }
       else{
         $(".projectShortBlurb-" + projectId).text("");
-        $(".projectLikes-" + projectId).text("Likes: " + data.likes);
+        $(".projectLikes-" + projectId).text("");
+        $(".more-"+projectId).hide();
       }
 
     });
