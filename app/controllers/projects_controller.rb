@@ -35,7 +35,8 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       format.html { render :show }
       format.json { render json: @project}
-      format.json { render json: @comments}
+      format.json { render json: @comments }
+      format.json { render json: @comments["user"] }
     end
   end
 

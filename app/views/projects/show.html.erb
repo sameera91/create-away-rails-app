@@ -58,35 +58,29 @@
 
 <script type="text/javascript" charset="utf-8">
 $(function () {
-  /*$(".next-project").on("click", function(event) {
-
-
-    var projectUrl = event["target"]["href"]
-
-    var projectId = parseInt(projectUrl.slice(0,-1).slice(-1))+1;
-    console.log(projectId);
-
-    $.get("/projects/" + projectId + ".json", function(data){
-      $("body").html(data);
-    });
-
-  });*/
-
-  //$(".new_comment").html("");
 
   $(".comments").click(function(event){
+
+    console.log(event);
 
     event.preventDefault();
 
     var projectUrl = event["target"]["href"];
 
+    var projectId = projectUrl.slice(-1);
+
     $.get(projectUrl + ".json", function(data) {
 
-
+      console.log(data);
       data["comments"].forEach(function(object){
-        if($("#new_comment").val().indexOf(object.content) === -1){
+        if($("#new_comment").text().indexOf(object.content) === -1){
+          console.log("hello");
           $("#new_comment").append('</br>' + object.content + '</br>');
+          $("#new_comment").append('By: ' + object["user"]["name"] + '</br>');
 
+        }
+        else{
+          event.preventDefault();
         }
       });
 
@@ -94,8 +88,29 @@ $(function () {
 
   });
 
-  $(".post_comment").click(function(event){
-    $("#form").show();
+  $('form').on('submit', function(event){
+      event.preventDefault();
+
+      var values = $(this).serialize();
+
+      var projectUrl = event["target"]["baseURI"];
+
+      var projectId = projectUrl.slice(-1);
+
+     
+      var posting = $.post('/projects/' + projectId + '/comments', values);
+
+
+      $.get(projectUrl + ".json", function(data) {
+
+      data["comments"].forEach(function(object){
+          console.log("hello");
+          $("#new_comment").append('</br>' + object.content + '</br>');
+          $("#new_comment").append('By: ' + object["user"]["name"] + '</br>');
+      });
+
+    });
+
   });
 });
 

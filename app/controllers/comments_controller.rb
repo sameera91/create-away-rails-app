@@ -20,12 +20,18 @@ class CommentsController < ApplicationController
     else
       render "comments/new"
     end
+    render json: @comment, status: 201
   end
 
   def show
     @comment = Comment.find(params[:id])
     @project = Project.find(@comment.project_id)
     @user_name = User.find(@comment.user_id).name
+
+    respond_to do |f|
+      f.html { render :show }
+      f.json { render json: @comment }
+    end
   end
 
   def edit
