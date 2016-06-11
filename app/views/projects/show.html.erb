@@ -49,19 +49,21 @@
   <%end%>
 </div>
 
-<div id="new_comment">
+
 
 <a href="" class="comments">Load Comments:</a><br><br>
 
-</div>
+
+<% @project.comments.each do |comment| %>
+  <div class=comment_content-<%=comment.id+1%>></div>
+  <div class=comment_user-<%=comment.id+1%>></div>
+<%end%>
 
 
 <script type="text/javascript" charset="utf-8">
 $(function () {
 
   $(".comments").click(function(event){
-
-    console.log(event);
 
     event.preventDefault();
 
@@ -71,13 +73,11 @@ $(function () {
 
     $.get(projectUrl + ".json", function(data) {
 
-      console.log(data);
       data["comments"].forEach(function(object){
-        if($("#new_comment").text().indexOf(object.content) === -1){
-          console.log("hello");
-          $("#new_comment").append('</br>' + object.content + '</br>');
-          $("#new_comment").append('By: ' + object["user"]["name"] + '</br>');
-
+        $("comment_content-"+object.id).text("");
+        $("comment_user-"+object.id).text("");
+        if($(".comment_content-"+object.id).text().indexOf(object.content) === -1){
+          appendData(object);
         }
         else{
           event.preventDefault();
@@ -97,22 +97,21 @@ $(function () {
 
       var projectId = projectUrl.slice(-1);
 
-     
+
       var posting = $.post('/projects/' + projectId + '/comments', values);
 
-
-      $.get(projectUrl + ".json", function(data) {
-
-      data["comments"].forEach(function(object){
-          console.log("hello");
-          $("#new_comment").append('</br>' + object.content + '</br>');
-          $("#new_comment").append('By: ' + object["user"]["name"] + '</br>');
+      posting.done(function(data) {
+        appendData(data);
       });
 
-    });
-
   });
-});
+
+  function appendData(data){
+    $(".comment_content-"+data.id).append('</br>' + data.content + '</br>');
+    $(".comment_user-"+data.id).append('By: ' + data["user"]["name"] + '</br>');
+  }
+
+})
 
 
 </script>

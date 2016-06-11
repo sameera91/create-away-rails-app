@@ -16,22 +16,23 @@ class CommentsController < ApplicationController
       @project = Project.find(@comment.project_id)
       current_user.comments << @comment
       @project.comments.build(comment_params)
-      redirect_to project_path(@project)
+      render json: @comment, status: 201
+      #redirect_to project_path(@project)
     else
       render "comments/new"
     end
-    render json: @comment, status: 201
   end
 
   def show
     @comment = Comment.find(params[:id])
     @project = Project.find(@comment.project_id)
     @user_name = User.find(@comment.user_id).name
-
+=begin
     respond_to do |f|
       f.html { render :show }
       f.json { render json: @comment }
     end
+=end
   end
 
   def edit
