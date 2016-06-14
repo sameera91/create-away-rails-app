@@ -1,4 +1,4 @@
-<%= form_for comment do |f| %>
+<%= form_for @comment do |f| %>
   <%= f.hidden_field :project_id %>
   <%= f.label "Comment" %><br>
   <%= f.text_area :content, class: 'text-area' %><br><br>

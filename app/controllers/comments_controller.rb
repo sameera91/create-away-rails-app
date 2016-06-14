@@ -44,8 +44,8 @@ class CommentsController < ApplicationController
     @comment.update(comment_params)
     if @comment.save
       flash[:success] = "Comment updated."
+      redirect_to @comment
     end
-    redirect_to @comment
   end
 
   def destroy
