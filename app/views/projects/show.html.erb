@@ -80,7 +80,8 @@ $(function () {
 
       data["comments"].forEach(function(object){
         
-        if($("#box").text().indexOf(object.content) === -1){
+        if($("#box").text().indexOf(object.content) === -1 && object.content != ""){
+          console.log(object.content);
           loadData(object);
           $(".edit_comment-"+object.id).show();
         }
