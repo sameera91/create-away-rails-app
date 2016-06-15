@@ -56,8 +56,6 @@
   <%if current_user && index != @project.comments.size - 1 %>
     <%= link_to "Edit", edit_comment_path(@project.comments[index+1]), class: "edit_comment-#{comment.id+1} edit" %>
     <%= link_to 'Delete', comment, confirm: 'Are you sure?', method: :delete, class: "delete_comment-#{comment.id+1} delete" %>
-
-
   <%end%>
 
   <div class=comment_content-<%=comment.id+1%>></div>
