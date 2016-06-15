@@ -2,17 +2,17 @@
 
 <% @categories.each do |category| %>
   <p><%= link_to category.name, category_path(category), :class => "category_title" %></p>
-  <div class=projectName-<%= category.id %>></div><br>
+  <div class=projectName-<%= category.id%>></div><br>
 <%end%>
 
 <script type="text/javascript" charset="utf-8">
 
   $(function () {
-
-  $(".view").hide();
   
   $(".category_title").on("click", function(event) {
     event.preventDefault();
+
+    $(".projects").show();
 
     var projectUrl = event["target"]["href"];
 
@@ -21,7 +21,13 @@
     $.get(projectUrl + ".json", function(data) {
 
         data["projects"].forEach(function(object){
-          $(".projectName-" + data.id).append(object.title + '</br>');
+
+          if($(".projectName-" + data.id).text().indexOf(object.title) === -1){
+            $(".projectName-" + data.id).append(object.title + '</br>');
+          }
+          else{
+             $(".projectName-" + data.id).text("");
+          }
         })
 
     });
