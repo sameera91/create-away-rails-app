@@ -55,6 +55,9 @@
 <% @project.comments.each_with_index do |comment, index| %>
   <%if current_user && index != @project.comments.size - 1 %>
     <%= link_to "Edit", edit_comment_path(@project.comments[index+1]), class: "edit_comment-#{comment.id+1} edit" %>
+    <%= link_to 'Delete', comment, confirm: 'Are you sure?', method: :delete, class: "delete_comment-#{comment.id+1} delete" %>
+
+
   <%end%>
 
   <div class=comment_content-<%=comment.id+1%>></div>
@@ -67,6 +70,7 @@
 $(function () {
 
   $(".edit").hide();
+  $(".delete").hide();
 
   $(".comments").click(function(event){
 
@@ -81,13 +85,12 @@ $(function () {
       data["comments"].forEach(function(object){
         
         if($("#box").text().indexOf(object.content) === -1 && object.content != ""){
-          console.log(object.content);
           loadData(object);
           $(".edit_comment-"+object.id).show();
+          $(".delete_comment-"+object.id).show();
         }
         else{
           event.preventDefault();
-          alert("This comment has already been posted.");
         }
       });
 
@@ -114,6 +117,7 @@ $(function () {
 
   function loadData(data){
     $(".edit_comment-"+data.id).show();
+    $(".delete_comment-"+data.id).show();
      $(".comment_content-"+data.id).append(data.content + '</br>');
      $(".comment_user-"+data.id).append('By: ' + data["user"]["name"] + '</br></br>');
    
@@ -121,7 +125,7 @@ $(function () {
 
   function postData(data){
     
-     $(".comment_content-"+data.id).prepend("You just said:" + '</br>' + data.content + '</br>');
+     $(".comment_content-"+data.id).prepend("You posted:" + '</br>' + data.content + '</br>');
    
   }
 
