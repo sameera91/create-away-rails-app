@@ -19,12 +19,14 @@
 
     <div class=projectShortBlurb-<%= project.id %>></div>
     <div class=projectLikes-<%=project.id%>></div>
+    <div class=projectLocation-<%=project.id%>></div>
     <%= link_to "View Project", project_path(project), :class => "more btn btn-primary" %><br>
   <% else %>
     <%= link_to project.title, project_path(project), :class => "project_title" %><br>
     <p class="created">Created by: <%= User.find(project.user_id).name %></p>
     <div class=projectShortBlurb-<%=project.id%>></div>
     <div class=projectLikes-<%=project.id%>></div>
+    <div class=projectLocation-<%=project.id%>></div>
     <%= link_to "View Project", project_path(project), :class => "more-#{project.id} view" %><br><br>
   <% end %>
 <%end%>
@@ -46,24 +48,27 @@
     
     $.get(projectUrl + ".json", function(data) {
       
-      var project = new Project(data.short_blurb, data.likes);
+      var project = new Project(data.short_blurb, data.likes, data.location);
       project.display_project(); 
 
     });
 
-    function Project(short_blurb, likes){
+    function Project(short_blurb, likes, location){
       this.short_blurb = short_blurb;
       this.likes = likes;
+      this.location = location;
 
       this.display_project = function(){
         if($(".projectShortBlurb-" + projectId).text() == ""){
           $(".projectShortBlurb-" + projectId).text(short_blurb);
           $(".projectLikes-" + projectId).text("Likes: " + likes);
+          $(".projectLocation-" + projectId).text(location);
           $(".more-"+projectId).show();
         }
         else{
           $(".projectShortBlurb-" + projectId).text("");
           $(".projectLikes-" + projectId).text("");
+          $(".projectLocation-" + projectId).text("");
           $(".more-"+projectId).hide();
         }
       }

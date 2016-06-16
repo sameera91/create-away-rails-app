@@ -54,8 +54,7 @@
 <div id="box">
 <% @project.comments.each_with_index do |comment, index| %>
   <%if current_user && index != @project.comments.size - 1 %>
-    <%= link_to "Edit", edit_comment_path(@project.comments[index+1]), class: "edit_comment-#{comment.id+1} edit" %>
-    <%= link_to 'Delete', comment, confirm: 'Are you sure?', method: :delete, class: "delete_comment-#{comment.id+1} delete" %>
+    
   <%end%>
 
   <div class=comment_content-<%=comment.id+1%>></div>
@@ -63,6 +62,8 @@
   
 <%end%>
 </div>
+
+<div class='comment_div'></div>
 
 <script type="text/javascript" charset="utf-8">
 $(function () {
@@ -82,7 +83,7 @@ $(function () {
 
       data["comments"].forEach(function(object){
         
-        if($("#box").text().indexOf(object.content) === -1 && object.content != ""){
+        if($("#box").text().indexOf(object.content) === -1){
           loadData(object);
           $(".edit_comment-"+object.id).show();
           $(".delete_comment-"+object.id).show();
@@ -108,22 +109,40 @@ $(function () {
 
 
       posting.done(function(data) {
+        //data["comments"].forEach(function(object){
+          //loadData(object);
+        //})
+        console.log(data);
         postData(data);
       });
 
   });
 
   function loadData(data){
-    $(".edit_comment-"+data.id).show();
-    $(".delete_comment-"+data.id).show();
+    
+    var editLink = "../comments/" + data.id + "/edit";
+    var deleteLink = "../comments/" + data.id + "/delete";
+    //$(".edit_comment-"+data.id).show();
+    //$(".delete_comment-"+data.id).show();
      $(".comment_content-"+data.id).append(data.content + '</br>');
      $(".comment_user-"+data.id).append('By: ' + data["user"]["name"] + '</br></br>');
-   
+     $(".comment_content-"+data.id).prepend("<div> <a href="+editLink+">Edit</a> <a href="+deleteLink+">Delete</a></div>");
+     //$(".comment_content-"+data.id).append("<div> <a href="+deleteLink+">Delete</a></div>");
   }
 
+
   function postData(data){
-    
-     $(".comment_content-"+data.id).prepend("You posted:" + '</br>' + data.content + '</br>');
+     console.log(current_user);
+     var data_id = parseInt(data.id)
+     console.log(data_id);
+     //$(".edit-comment-"+data_id).show();
+     var editLink = "../comments/" + data.id + "/edit";
+     var deleteLink = "../comments/" + data.id + "/delete";
+     console.log($(".edit-comment-"+data_id).text());
+    //$(".delete-comment-"+data_id).show();
+    $(".comment_div").append("<div> <a href="+editLink+">Edit</a></div>");
+    $(".comment_div").append("<div> <a href="+deleteLink+">Delete</a></div>");
+    $(".comment_div").append("You posted:" + '</br>' + data.content + '</br>');
    
   }
 
