@@ -23,8 +23,8 @@
 
       data["projects"].forEach(function(object){
         console.log(object.first); 
-        var myLink = "../projects/" + object.id;
-        $(".projects-"+projectId).append("<div><a href="+myLink+">"+object.title+"</a></div>"); //<a href=object.id>object.title</a>
+        var projectLink = "../projects/" + object.id;
+        $(".projects-"+projectId).append("<div><a href="+projectLink+">"+object.title+"</a></div>"); //<a href=object.id>object.title</a>
       });
 
     });
