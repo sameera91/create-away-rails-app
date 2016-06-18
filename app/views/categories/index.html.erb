@@ -1,37 +1,37 @@
 <h1>List of categories</h1>
 
 <% @categories.each do |category| %>
-  <p><%= link_to category.name, category_path(category), :class => "category_title" %></p>
-  <div class=projectName-<%= category.id%>></div><br>
+  <%= link_to category.name, category_path(category.id), :class => "name" if category.name != "" %><br>
+  <div class=projects-<%=category.id%>></div>
 <%end%>
 
 <script type="text/javascript" charset="utf-8">
+ 
+ $(function () {
 
-  $(function () {
-  
-  $(".category_title").on("click", function(event) {
+  $(".name").click(function(event){
+
     event.preventDefault();
 
-    $(".projects").show();
-
+    console.log(event);
     var projectUrl = event["target"]["href"];
-
     var projectId = projectUrl.slice(-1);
-    
+
     $.get(projectUrl + ".json", function(data) {
 
-        data["projects"].forEach(function(object){
+      console.log(data["projects"]);
 
-          if($(".projectName-" + data.id).text().indexOf(object.title) === -1){
-            $(".projectName-" + data.id).append(object.title + '</br>');
-          }
-          else{
-             $(".projectName-" + data.id).text("");
-          }
-        })
+      data["projects"].forEach(function(object){
+        console.log(object.first); 
+        var myLink = "../projects/" + object.id;
+        $(".projects-"+projectId).append("<div><a href="+myLink+">"+object.title+"</a></div>"); //<a href=object.id>object.title</a>
+      });
 
     });
+
   });
-});
+
+})
 
 </script>
+
