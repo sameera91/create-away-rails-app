@@ -52,24 +52,27 @@
 <a href="" class="comments">Load Comments:</a><br><br>
 
 <div id="box">
-<% @project.comments.each_with_index do |comment, index| %>
-  <%if current_user && index != @project.comments.size - 1 %>
-    
-  <%end%>
 
-  <div class=comment_content-<%=comment.id+1%>></div>
-  <div class=comment_user-<%=comment.id+1%>></div>
-  
-<%end%>
+  <div class='comment_div'></div>
+
+  <% @project.comments.each_with_index do |comment, index| %>
+    <div class=comment_content-<%=comment.id+1%>></div>
+    <div class=comment_user-<%=comment.id+1%>></div>
+    <br>
+  <%end%>
 </div>
 
-<div class='comment_div'></div>
 
 <script type="text/javascript" charset="utf-8">
 $(function () {
 
   $(".edit").hide();
   $(".delete").hide();
+  $("form").hide();
+
+  if(currentUser.id != ""){
+    $("form").show();
+  }
 
   $(".comments").click(function(event){
 
@@ -107,42 +110,40 @@ $(function () {
 
       var posting = $.post('/projects/' + projectId + '/comments', values);
 
-
       posting.done(function(data) {
-        //data["comments"].forEach(function(object){
-          //loadData(object);
-        //})
-        console.log(data);
-        postData(data);
+          postData(data);
       });
 
   });
 
   function loadData(data){
-    
+
     var editLink = "../comments/" + data.id + "/edit";
-    var deleteLink = "../comments/" + data.id + "/delete";
+    var deleteLink = "../comments/" + data.id;
     //$(".edit_comment-"+data.id).show();
     //$(".delete_comment-"+data.id).show();
      $(".comment_content-"+data.id).append(data.content + '</br>');
      $(".comment_user-"+data.id).append('By: ' + data["user"]["name"] + '</br></br>');
-     $(".comment_content-"+data.id).prepend("<div> <a href="+editLink+">Edit</a> <a href="+deleteLink+">Delete</a></div>");
+
+     if(window.currentUser.id == data["user"]["id"]){
+      $(".comment_content-"+data.id).prepend("<div> <a href="+editLink+">Edit</a> <a data-method='delete' href="+deleteLink+">Delete</a></div>");
+     }
      //$(".comment_content-"+data.id).append("<div> <a href="+deleteLink+">Delete</a></div>");
   }
 
 
   function postData(data){
-     console.log(current_user);
+
      var data_id = parseInt(data.id)
-     console.log(data_id);
      //$(".edit-comment-"+data_id).show();
      var editLink = "../comments/" + data.id + "/edit";
      var deleteLink = "../comments/" + data.id + "/delete";
-     console.log($(".edit-comment-"+data_id).text());
     //$(".delete-comment-"+data_id).show();
-    $(".comment_div").append("<div> <a href="+editLink+">Edit</a></div>");
-    $(".comment_div").append("<div> <a href="+deleteLink+">Delete</a></div>");
-    $(".comment_div").append("You posted:" + '</br>' + data.content + '</br>');
+
+    $(".comment_div").append("<a href="+editLink+">Edit</a> ");
+    $(".comment_div").append("<a href="+deleteLink+">Delete</a> </br>");
+    $(".comment_div").append(data.content + '</br>');
+    $(".comment_div").append("By: " + data.user.name + '</br></br>');
    
   }
 
