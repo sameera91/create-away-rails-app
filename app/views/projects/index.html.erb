@@ -41,10 +41,9 @@
   $(".project_title").on("click", function(event) {
     event.preventDefault();
 
-    var projectUrl = event["target"]["href"];
+    var projectUrl = event["target"]["pathname"];
 
-    var projectId = projectUrl.slice(-1);
-
+    var projectId = parseInt(projectUrl.match(/\d+/g));
     
     $.get(projectUrl + ".json", function(data) {
       
@@ -71,10 +70,11 @@
           $(".projectLocation-" + projectId).text("");
           $(".more-"+projectId).hide();
         }
-      }
-    }
+       }
+     }
 
   });
 });
+
 
 </script>

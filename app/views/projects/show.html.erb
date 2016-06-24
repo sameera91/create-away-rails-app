@@ -120,25 +120,20 @@ $(function () {
 
     var editLink = "../comments/" + data.id + "/edit";
     var deleteLink = "../comments/" + data.id;
-    //$(".edit_comment-"+data.id).show();
-    //$(".delete_comment-"+data.id).show();
      $(".comment_content-"+data.id).append(data.content + '</br>');
      $(".comment_user-"+data.id).append('By: ' + data["user"]["name"] + '</br></br>');
 
      if(window.currentUser.id == data["user"]["id"]){
       $(".comment_content-"+data.id).prepend("<div> <a href="+editLink+">Edit</a> <a data-method='delete' href="+deleteLink+">Delete</a></div>");
      }
-     //$(".comment_content-"+data.id).append("<div> <a href="+deleteLink+">Delete</a></div>");
   }
 
 
   function postData(data){
 
-     var data_id = parseInt(data.id)
-     //$(".edit-comment-"+data_id).show();
-     var editLink = "../comments/" + data.id + "/edit";
-     var deleteLink = "../comments/" + data.id + "/delete";
-    //$(".delete-comment-"+data_id).show();
+   var data_id = parseInt(data.id)
+   var editLink = "../comments/" + data.id + "/edit";
+   var deleteLink = "../comments/" + data.id + "/delete";
 
     $(".comment_div").append("<a href="+editLink+">Edit</a> ");
     $(".comment_div").append("<a href="+deleteLink+">Delete</a> </br>");
