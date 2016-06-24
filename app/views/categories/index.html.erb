@@ -3,7 +3,9 @@
 <% @categories.each do |category| %>
   <%= link_to category.name, category_path(category.id), :class => "name" if category.name != "" %><br>
   <div class="box">
-  <div class=projects-<%=category.id%>></div><br>
+   <% if category.name != "" %>
+    <div class=projects-<%=category.id%>></div><br>
+   <%end%>
   </div>
 <%end%>
 
@@ -15,19 +17,18 @@
 
     event.preventDefault();
 
-    console.log(event);
     var projectUrl = event["target"]["href"];
     var projectId = projectUrl.slice(-1);
 
     $.get(projectUrl + ".json", function(data) {
 
-      console.log(data["projects"]);
-
       data["projects"].forEach(function(object){
-        console.log(object.first); 
         var projectLink = "../projects/" + object.id;
         if($(".box").text().indexOf(object.title) === -1){
-          $(".projects-"+projectId).append("<div><a href="+projectLink+">"+object.title+"</a></div>"); //<a href=object.id>object.title</a>
+          $(".projects-"+projectId).append("<div><a href="+projectLink+">"+object.title+"</a></div>"); 
+        }
+        else{
+          $(".projects-" + projectId).text("");
         }
       });
 
