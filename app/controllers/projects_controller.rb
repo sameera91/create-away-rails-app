@@ -30,14 +30,17 @@ class ProjectsController < ApplicationController
     else
       @project = Project.find(params[:id])
     end
+    
     @user_name = User.find(@project.user_id).name
     @comments = @project.comments
+
     respond_to do |format|
       format.html { render :show }
       format.json { render json: @project}
       format.json { render json: @comments }
       format.json { render json: @comments["user"] }
     end
+
   end
 
   def edit
