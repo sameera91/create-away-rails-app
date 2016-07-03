@@ -20,7 +20,7 @@
   <%end%>
   <br>
   <p class="created"><%= @project.short_blurb %></p>
-
+  <p><%= @project.location %></p>
 
   <div class="likes"><%= pluralize(@project.likes, 'like') %></div>
 
@@ -83,18 +83,22 @@ $(function () {
 
     $.get(projectUrl + ".json", function(data) {
 
+      if(data["comments"].length === 0){
+        alert("There are no comments to display.");
+      }
 
-      data["comments"].forEach(function(object){
-        
-        if($("#box").text().indexOf(object.content) === -1){
-          loadData(object);
-          $(".edit_comment-"+object.id).show();
-          $(".delete_comment-"+object.id).show();
-        }
-        else{
-          event.preventDefault();
-        }
-      });
+      else{
+
+        data["comments"].forEach(function(object){
+          
+          if($("#box").text().indexOf(object.content) === -1){
+            loadData(object);
+          }
+          else{
+            event.preventDefault();
+          }
+        });
+      }
 
     });
 
