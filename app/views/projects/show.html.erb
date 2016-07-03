@@ -56,8 +56,8 @@
   <div class='comment_div'></div>
 
   <% @project.comments.each_with_index do |comment, index| %>
-    <div class=comment_content-<%=comment.id+1%>></div>
-    <div class=comment_user-<%=comment.id+1%>></div>
+    <div class=comment_content-<%=comment.id%>></div>
+    <div class=comment_user-<%=comment.id%>></div>
     <br>
   <%end%>
 </div>
@@ -90,7 +90,7 @@ $(function () {
       else{
 
         data["comments"].forEach(function(object){
-          
+
           if($("#box").text().indexOf(object.content) === -1){
             loadData(object);
           }
@@ -121,7 +121,6 @@ $(function () {
   });
 
   function loadData(data){
-
     var editLink = "../comments/" + data.id + "/edit";
     var deleteLink = "../comments/" + data.id;
      $(".comment_content-"+data.id).append(data.content + '</br>');
