@@ -1,8 +1,8 @@
 <h1>List of categories</h1>
 
 <% @categories.each do |category| %>
-  <%= link_to category.name, category_path(category.id), :class => "name" if category.name != "" %><br>
-  <div class="box">
+  <%= link_to category.name, category_path(category.id), :class => "category" if category.name != "" %><br>
+  <div class=box-<%=category.id%>>
    <% if category.name != "" %>
     <div class=projects-<%=category.id%>></div><br>
    <%end%>
@@ -13,7 +13,7 @@
  
  $(function () {
 
-  $(".name").click(function(event){
+  $(".category").click(function(event){
 
     event.preventDefault();
 
@@ -24,7 +24,7 @@
 
       data["projects"].forEach(function(object){
         var projectLink = "../projects/" + object.id;
-        if($(".box").text().indexOf(object.title) === -1){
+        if($(".box-"+projectId).text().indexOf(object.title) === -1){
           $(".projects-"+projectId).append("<div><a href="+projectLink+">"+object.title+"</a></div>"); 
         }
         else{
