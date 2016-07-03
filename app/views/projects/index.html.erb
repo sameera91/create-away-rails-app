@@ -17,10 +17,10 @@
     <%= link_to project.title, user_project_path(params[:user_id], project.id), :class => "project_title" %><br>
     <p class="created">Created by: <%= User.find(project.user_id).name %></p>
 
-    <div class=projectShortBlurb-<%= project.id %>></div>
+    <div class=projectShortBlurb-<%=project.id%>></div>
     <div class=projectLikes-<%=project.id%>></div>
     <div class=projectLocation-<%=project.id%>></div>
-    <%= link_to "View Project", project_path(project), :class => "more btn btn-primary" %><br>
+    <%= link_to "View Project", project_path(project), :class => "more-#{project.id} view" %><br><br>
   <% else %>
     <%= link_to project.title, project_path(project), :class => "project_title" %><br>
     <p class="created">Created by: <%= User.find(project.user_id).name %></p>
@@ -42,8 +42,8 @@
     event.preventDefault();
 
     var projectUrl = event["target"]["pathname"];
-
-    var projectId = parseInt(projectUrl.match(/\d+/g));
+    var project_str = projectUrl.substring(projectUrl.indexOf("p") + 1);
+    var projectId = parseInt(project_str.match(/\d+/g).join(''));
     
     $.get(projectUrl + ".json", function(data) {
       
@@ -75,6 +75,5 @@
 
   });
 });
-
 
 </script>
