@@ -22,15 +22,23 @@
 
     $.get(projectUrl + ".json", function(data) {
 
-      data["projects"].forEach(function(object){
-        var projectLink = "../projects/" + object.id;
-        if($(".box-"+projectId).text().indexOf(object.title) === -1){
-          $(".projects-"+projectId).append("<div><a href="+projectLink+">"+object.title+"</a></div>"); 
-        }
-        else{
-          $(".projects-" + projectId).text("");
-        }
-      });
+      if(data["projects"].length === 0){
+        alert("There are no projects to display.");
+      }
+
+      else{
+
+        data["projects"].forEach(function(object){
+          var projectLink = "../projects/" + object.id;
+          if($(".box-"+projectId).text().indexOf(object.title) === -1){
+            $(".projects-"+projectId).append("<div><a href="+projectLink+">"+object.title+"</a></div>"); 
+          }
+          else{
+            $(".projects-" + projectId).text("");
+          }
+        });
+
+      }
 
     });
 
