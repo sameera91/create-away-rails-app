@@ -16,6 +16,11 @@
 body{
   text-align: center;
   background-image: url("asanoha.png");
+  font-family: 'Open Sans', sans-serif;
+}
+
+.text{
+  width: 270px;
 }
 
 .home{
@@ -115,15 +120,6 @@ body{
   box-shadow: 10px 10px 5px #888888;
 }
 
-.each{
-  width: 30%;
-  margin-right: 10px;
-  text-align: center;
-  border: 1px solid;
-  border-radius: 10px;
-  box-shadow: 10px 10px 5px #888888;
-  background-color: #ebd6f5;
-}
 
 .form-control{
   width: 20%;
@@ -147,6 +143,10 @@ hr {
 
 .creator{
   font-weight: bold;
+}
+
+#box{
+  width: 50%;
 }
 
 .likes{
