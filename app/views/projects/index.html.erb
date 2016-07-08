@@ -1,33 +1,48 @@
 <%= flash[:success] if flash[:success] %>
-<br>
-<h3>Check out the latest projects. Start your own today!</h3>
+<h3>We have a wide a variety of projects.</h3><br>
+<%if current_user %>
+  <p><%= link_to "Add yours today.", new_project_path, :class => "form_button" %></p>
+<%else%>
+  <p><%= link_to "Add yours today.", new_user_session_path, :class => "form_button" %></p>
+<%end%>
 <br><br>
 
-<h2>Trending projects</h2>
+<h2>What's Popular</h2>
 <% @trending_projects.each do |project| %>
   <%= project.title %>
 <%end%>
-
 <br><br><br>
 
-<h2>All projects</h2>
+<%if params[:user_id]%>
+  <h2>My Projects</h2><br>
+<%else%>
+  <h2>Discover Awesome Projects</h2><br>
+<%end%>
+
 
 <% @projects.each do |project| %>
   <% if params[:user_id] %>
+    <center><div class="each">
     <%= link_to project.title, user_project_path(params[:user_id], project.id), :class => "project_title" %><br>
     <p class="created">Created by: <%= User.find(project.user_id).name %></p>
-
+    <%= link_to image_tag(project.image.url, class: 'media-object'), project.image.url, target: '_blank' %>
     <div class=projectShortBlurb-<%=project.id%>></div>
     <div class=projectLikes-<%=project.id%>></div>
     <div class=projectLocation-<%=project.id%>></div>
     <%= link_to "View Project", project_path(project), :class => "more-#{project.id} view" %><br><br>
+    </div></center>
+    <br><br>
   <% else %>
-    <%= link_to project.title, project_path(project), :class => "project_title" %><br>
+   <center><div class="each">
+    <%= link_to project.title, project_path(project), :class => "project_title" %><br><br>
+    <center><%= link_to image_tag(project.image.url, class: 'media-object'), project.image.url, target: '_blank' %></center><br>
     <p class="created">Created by: <%= User.find(project.user_id).name %></p>
     <div class=projectShortBlurb-<%=project.id%>></div>
     <div class=projectLikes-<%=project.id%>></div>
     <div class=projectLocation-<%=project.id%>></div>
     <%= link_to "View Project", project_path(project), :class => "more-#{project.id} view" %><br><br>
+    </div></center>
+    <br><br>
   <% end %>
 <%end%>
 
@@ -75,5 +90,6 @@
 
   });
 });
+</script>
 
 </script>

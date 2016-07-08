@@ -16,6 +16,25 @@ body{
   background-image: url("asanoha.png");
 }
 
+.home{
+  text-align: center;
+  background-image: url("coffee.jpg");
+}
+
+.header{
+  background-color: black;
+}
+
+.category{
+  font-size: 20px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.nav{
+  float: right;
+  margin-top: -55px;
+}
+
 
 .nav_button{
   color: #0086b3;
@@ -26,9 +45,6 @@ body{
   padding-right: 15px;
   font-family: "Arial";
   font-size: 15px;
-  border: solid 0.2px;
-  background-color: white;
-  border-radius: 3px;
 }
 
 .welcome{
@@ -54,9 +70,23 @@ body{
 .title, .title:hover {
   text-transform: uppercase;
   font-size: 40px;
-  color: #ff66cc;
+  color: white;
   font-family: 'Open Sans', sans-serif;
   text-decoration: none;
+  float: left;
+  margin-left: 80px;
+  margin-top: 7px;
+}
+
+.start{
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.heading{
+  color: white;
+  font-size: 40px;
 }
 
 #title{
@@ -66,7 +96,7 @@ body{
 .create_new{
   text-transform: uppercase;
   color: #4B0082;
-  font-family: 'Times New Roman';
+  font-family: 'Open Sans', sans-serif;
   font-size: 25px;
 }
 
@@ -80,6 +110,17 @@ body{
   border-radius: 7px;
   text-align: center;
   background-color: #ecd9c6;
+  box-shadow: 10px 10px 5px #888888;
+}
+
+.each{
+  width: 30%;
+  margin-right: 10px;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px #888888;
+  background-color: #ebd6f5;
 }
 
 .form-control{
