@@ -35,6 +35,7 @@ gem 'devise'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'pry'
+gem 'capybara'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem "paperclip", "~> 4.2"
@@ -50,7 +51,8 @@ end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
