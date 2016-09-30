@@ -15,13 +15,13 @@ feature 'New project can be created' do
       find('.form-control').set('app/views/layouts/Drawing.png')
       click_button 'Create Project'
 
-      expect(page).to have_css '.project_title_1', 'New Project'
+      expect(page).to have_text 'New Project'
   end
 end
 
-feature 'Project can be edited' do
+feature 'Project can be updated' do
 
-    scenario 'Visit form to edit project' do  
+    scenario 'Visit form to updated project' do  
 
       user = FactoryGirl.create(:user)
       login_as(user, :scope => :user)
@@ -33,10 +33,10 @@ feature 'Project can be edited' do
       click_button 'Create Project'
 
       click_link "Edit project"
-      fill_in 'project_title', with: 'Edited Project'
+      fill_in 'project_title', with: 'Updated Project'
       click_button 'Update Project'
 
-      expect(page).to have_css '.project_title_1', 'Edited Project'
+      expect(page).to have_text 'Updated Project'
   end
 end
 

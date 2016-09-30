@@ -18,7 +18,7 @@ feature 'User can sign up and login' do
 
       create_user 
 
-      expect(page).to have_css '.welcome', 'sameera'
+      expect(page).to have_css '.welcome'
   end
 
   scenario 'User can log into account' do  
@@ -28,7 +28,7 @@ feature 'User can sign up and login' do
 
       visit new_user_session_path
       
-      expect(page).to have_css '.welcome', 'sameera'
+      expect(page).to have_css '.welcome'
   end
 
   scenario 'User can sign out of account' do  
